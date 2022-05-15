@@ -2,6 +2,7 @@ package string_sum
 
 import (
 	"errors"
+	"strconv"
 )
 
 //use these errors as appropriate, wrapping them with fmt.Errorf function
@@ -23,5 +24,41 @@ var (
 // Use the errors defined above as described, again wrapping into fmt.Errorf
 
 func StringSum(input string) (output string, err error) {
-	return "", nil
+	in:=[]rune(input)
+	var r []int64
+	t:=""
+	var s int64 
+	for i:=0;i<len(in);i++ {
+		if string(in[i])==" " {
+
+		} else if string(in[i])=="-" || string(in[i])=="+" {
+			if t!="" {
+				n,_:=strconv.ParseInt(t,10,32)
+				r=append(r,n)
+				t=string(in[i])
+			} else if string(in[i])=="-" {
+				t=t+"-"
+			}
+		} else{
+			_,err:=strconv.ParseInt(string(in[i]),10,32)
+			if err != nil {
+				return "",fmt.Errorf("Input expression is not valid: "+string(in[i])+" ",err)
+			}
+			t=t+string(in[i])
+		}
+	}
+	if t!="" {
+		n,_:=strconv.ParseInt(t,10,32)
+		r=append(r,n)
+	}
+	if(len(r)==0){
+		return "",errorEmptyInput
+	}
+	if(len(r)!=2){
+		return "",errorNotTwoOperands
+	}
+	for i:=0;i<len(r);i++ {
+		s+=r[i]
+	}
+	return strconv.FormatInt(s, 10), nil
 }
