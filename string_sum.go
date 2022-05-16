@@ -53,7 +53,7 @@ func StringSum(input string) (output string, err error) {
 		r=append(r,n)
 	}
 	if(len(r)==0){
-		return "",errorEmptyInput
+		return "",fmt.Errorf("Input expression is not valid: ",errorEmptyInput)
 	}
 	if(len(r)!=2){
 		return "",errorNotTwoOperands
