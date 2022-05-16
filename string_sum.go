@@ -30,9 +30,7 @@ func StringSum(input string) (output string, err error) {
 	t:=""
 	var s int64 
 	for i:=0;i<len(in);i++ {
-		if string(in[i])==" " {
-
-		} else if string(in[i])=="-" || string(in[i])=="+" {
+		if string(in[i])=="-" || string(in[i])=="+" {
 			if t!="" {
 				n,_:=strconv.ParseInt(t,10,32)
 				r=append(r,n)
@@ -40,7 +38,7 @@ func StringSum(input string) (output string, err error) {
 			} else if string(in[i])=="-" {
 				t=t+"-"
 			}
-		} else{
+		} else if string(in[i])!=" " {
 			_,err:=strconv.ParseInt(string(in[i]),10,32)
 			if err != nil {
 				return "",fmt.Errorf("Input expression is not valid: "+string(in[i])+" %w",err)
