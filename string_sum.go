@@ -43,7 +43,7 @@ func StringSum(input string) (output string, err error) {
 		} else{
 			_,err:=strconv.ParseInt(string(in[i]),10,32)
 			if err != nil {
-				return "",fmt.Errorf("Input expression is not valid: "+string(in[i])+" ",err)
+				return "",fmt.Errorf("Input expression is not valid: "+string(in[i])+" %w",err)
 			}
 			t=t+string(in[i])
 		}
@@ -53,10 +53,10 @@ func StringSum(input string) (output string, err error) {
 		r=append(r,n)
 	}
 	if(len(r)==0){
-		return "",fmt.Errorf("Input expression is not valid: ",errorEmptyInput)
+		return "",fmt.Errorf("Input expression is not valid: %w",errorEmptyInput)
 	}
 	if(len(r)!=2){
-		return "",errorNotTwoOperands
+		return "",fmt.Errorf("Input expression is not valid: %w",errorNotTwoOperands)
 	}
 	for i:=0;i<len(r);i++ {
 		s+=r[i]
